@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registered Users</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Registered Users</h2>
+
+    <table width="100%" cellpadding="8">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Gender</th>
+            <th>Course</th>
+        </tr>
+        <tbody id="data"></tbody>
+    </table>
+</div>
+
+<script>
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let table = document.getElementById("data");
+
+    users.forEach(u => {
+        let row = table.insertRow();
+        row.insertCell(0).innerHTML = u.name;
+        row.insertCell(1).innerHTML = u.email;
+        row.insertCell(2).innerHTML = "******";
+        row.insertCell(3).innerHTML = u.gender;
+        row.insertCell(4).innerHTML = u.course;
+    });
+</script>
+
+</body>
+</html>
