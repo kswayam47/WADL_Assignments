@@ -1,0 +1,10 @@
+<h2>User Profile</h2>
+
+<div *ngIf="user && user.email">
+  <p><b>Name:</b> {{ user.name }}</p>
+  <p><b>Email:</b> {{ user.email }}</p>
+</div>
+
+<div *ngIf="!user || !user.email">
+  <p>No user data found. Please login first.</p>
+</div>
