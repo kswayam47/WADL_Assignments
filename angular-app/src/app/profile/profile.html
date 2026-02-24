@@ -1,10 +1,57 @@
-<h2>User Profile</h2>
+<div class="profile-page">
+  <div class="notification" *ngIf="notification.message" [ngClass]="notification.type">
+    {{ notification.message }}
+  </div>
 
-<div *ngIf="user && user.email">
-  <p><b>Name:</b> {{ user.name }}</p>
-  <p><b>Email:</b> {{ user.email }}</p>
-</div>
+  <div class="profile-header">
+    <div class="header-content">
+      <h1>Student Dashboard</h1>
+      <p>Manage your academic identity and profile details</p>
+    </div>
+  </div>
 
-<div *ngIf="!user || !user.email">
-  <p>No user data found. Please login first.</p>
+  <div class="card-container">
+    <div class="premium-card">
+      <div class="card-header">
+        <div class="user-avatar">{{ user.name?.charAt(0) || 'U' }}</div>
+        <div class="user-meta">
+          <h3>{{ user.name || 'Student Name' }}</h3>
+          <span class="badge">{{ user.department || 'No Dept' }}</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="input-grid">
+          <div class="input-group full-width">
+            <label><span class="icon">👤</span> Full Name</label>
+            <input type="text" [(ngModel)]="user.name" placeholder="Full Name">
+          </div>
+
+          <div class="input-group full-width">
+            <label><span class="icon">📧</span> Email Address</label>
+            <input type="email" [ngModel]="user.email" disabled class="disabled-input">
+            <small>Email is your unique identifier</small>
+          </div>
+
+          <div class="input-group">
+            <label><span class="icon">🎓</span> Academic Year</label>
+            <input type="text" [(ngModel)]="user.year" placeholder="e.g. TE, BE">
+          </div>
+
+          <div class="input-group">
+            <label><span class="icon">🏛️</span> Department</label>
+            <input type="text" [(ngModel)]="user.department" placeholder="e.g. Computer Engineering">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn btn-primary" (click)="updateProfile()">Save Changes</button>
+        <div class="secondary-actions">
+          <button class="btn btn-secondary" (click)="logout()">Sign Out</button>
+          <button class="btn btn-danger" (click)="deleteAccount()">Delete Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

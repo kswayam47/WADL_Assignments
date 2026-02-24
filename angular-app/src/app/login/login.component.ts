@@ -2,34 +2,34 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './login.html'
+  templateUrl: './login.html',
+  styleUrls: ['./login.css']
 })
 export class LoginComponent {
-  email = '';
-  password = '';
-  errorMsg = '';
 
-  constructor(private router: Router) {}
+  credentials = {
+    email: '',
+    password: ''
+  };
+
+  constructor(private router: Router, private userService: UserService) { }
 
   login() {
-    const storedUser = localStorage.getItem('user');
-
-    if (!storedUser) {
-      this.errorMsg = 'No user found. Please register first.';
-      return;
-    }
-
-    const user = JSON.parse(storedUser);
-
-    if (this.email === user.email && this.password === user.password) {
-      this.router.navigate(['/profile']);
-    } else {
-      this.errorMsg = 'Invalid email or password';
-    }
+    this.userService.login(this.credentials).subscribe({
+      next: (res) => {
+        localStorage.setItem('userId', res._id || '');
+        this.router.navigate(['/profile']);
+      },
+      error: (err) => {
+        // Show specific error from backend (e.g. "User not found" or "Incorrect password")
+        alert('Login failed: ' + (err.error?.message || 'Connection error'));
+      }
+    });
   }
 }
