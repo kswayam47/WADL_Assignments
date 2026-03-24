@@ -19,9 +19,7 @@ mongoose.connect(MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB:', err));
 
-// Routes
 
-// REGISTER (Create User)
 app.post('/api/users/register', async (req, res) => {
     try {
         const { name, email, password, year, department } = req.body;
@@ -40,7 +38,7 @@ app.post('/api/users/register', async (req, res) => {
     }
 });
 
-// LOGIN (Read User for Auth)
+
 app.post('/api/users/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -63,7 +61,7 @@ app.post('/api/users/login', async (req, res) => {
     }
 });
 
-// GET USER INFO (Read)
+
 app.get('/api/users/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
@@ -76,7 +74,7 @@ app.get('/api/users/:id', async (req, res) => {
     }
 });
 
-// GET ALL USERS (Read - for completeness of CRUD)
+
 app.get('/api/users', async (req, res) => {
     try {
         const users = await User.find().sort({ createdAt: -1 });
@@ -86,7 +84,7 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
-// UPDATE USER (Update)
+
 app.put('/api/users/:id', async (req, res) => {
     try {
         const { name, email, year, department } = req.body;

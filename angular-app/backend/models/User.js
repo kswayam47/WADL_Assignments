@@ -16,11 +16,11 @@ const userSchema = new mongoose.Schema({
     },
     year: {
         type: String,
-        default: '' // Allow empty for old users, but field must exist
+        default: ''
     },
     department: {
         type: String,
-        default: '' // Allow empty for old users, but field must exist
+        default: '' 
     },
     createdAt: {
         type: Date,
